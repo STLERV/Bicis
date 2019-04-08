@@ -1,4 +1,4 @@
-
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Assert;
@@ -22,9 +22,7 @@ public class MyBikeImplTest {
 
 
         this.mb.addUser("1", "Patata", "AlHorno");
-        this.mb.addStation("Station1", "Navas");
-        this.mb.addStation("Station2", "manresa");
-        this.mb.addBike( "Bici1","Station1", 12780);
+
 
     }
 
@@ -38,13 +36,18 @@ public class MyBikeImplTest {
 
       @Test
 
-    public void addBikesTest() {
-        Assert.assertEquals(1, mb.numBikes("Station1"));
+    public void addBikesTest() throws StationException {
+          this.mb.addBike( "Bici1","Station1", 12780);
+
+          Assert.assertEquals(1, mb.numBikes("Station1"));
 
     }
     @Test
 
-    public void addStation() {
+    public void addStation() throws StationException {
+
+        this.mb.addStation("Station1", "Navas");
+        this.mb.addStation("Station2", "manresa");
         Assert.assertEquals(2, mb.numStations());
 
     }
@@ -52,6 +55,7 @@ public class MyBikeImplTest {
     @After
 
     public void tearDown(){
+        this.mb = null;
 
     }
 

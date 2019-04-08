@@ -4,11 +4,11 @@ public interface MyBike {
 
 
     public void addUser (String idUser, String name, String surname );
-    public void addStation (String idStation, String name);
-    public void addBike(String id, String  idStation, double km);
+    public void addStation (String idStation, String name) throws StationException;
+    public void addBike(String id, String  idStation, double km) throws StationException;
     public int numUsers();
     public int numStations();
-    public int numBikes(String idStation);
+    public int numBikes(String idStation) throws StationException;
 
 
 }
