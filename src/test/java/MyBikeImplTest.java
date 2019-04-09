@@ -1,13 +1,10 @@
-import org.apache.log4j.Logger;
+import eetac.MyBike;
+import eetac.MyBikeImpl;
+import eetac.StationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Assert;
 import org.junit.Test;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
 
 
 public class MyBikeImplTest {
@@ -17,11 +14,14 @@ public class MyBikeImplTest {
 
     public void SetUp()
     {
+
+        System.out.println("SETUP");
         mb = MyBikeImpl.getInstance();
         this.mb = new MyBikeImpl();
 
 
         this.mb.addUser("1", "Patata", "AlHorno");
+
 
 
     }
@@ -37,7 +37,8 @@ public class MyBikeImplTest {
       @Test
 
     public void addBikesTest() throws StationException {
-          this.mb.addBike( "Bici1","Station1", 12780);
+          this.mb.addStation("Station1", "Navas");
+           this.mb.addBike( "Bici1","Station1", 12780);
 
           Assert.assertEquals(1, mb.numBikes("Station1"));
 

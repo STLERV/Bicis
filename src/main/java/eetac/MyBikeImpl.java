@@ -1,5 +1,5 @@
+package eetac;
 
-import java.util.List;
 import java.util.*;
 import org.apache.log4j.Logger;
 
@@ -19,7 +19,7 @@ public class MyBikeImpl implements MyBike {
 
     public MyBikeImpl() {
 
-        stations = new Station[S];
+        stations = new Station[MyBike.S];
         listaBikes = new LinkedList<Bike>();
         users = new HashMap<String, User>();
         bikes = new LinkedList<Bike>();
@@ -46,18 +46,15 @@ public class MyBikeImpl implements MyBike {
     }
 
     //Añadimos la estacion en un array de estaciones ARRAY
-    public void addStation(String idStation, String name) throws StationException{
+    public void addStation(String idStation, String name)  {
 
         if (this.numstations < 11) {
             Station s = new Station(idStation, name);
-            s = this.stations[this.numstations];
+            this.stations[this.numstations] = s;
             this.numstations++;
             log.info("Estación añadida" );
         }
-        else{
 
-            throw new StationException();
-        }
 
     }
 
@@ -71,6 +68,8 @@ public class MyBikeImpl implements MyBike {
         Station s = null;
 
         for (int i = 0; i < this.numstations; i++) {
+            System.out.println(idStation);
+            System.out.println(this.stations[i]);
             if (idStation.equals(this.stations[i].idStation)) {
                 s = this.stations[i];
             }
@@ -78,10 +77,7 @@ public class MyBikeImpl implements MyBike {
 
         if (s != null) {
 
-            // si la estacion existe miramos si cabe y la metemos.
-            //pero de mmento solo la metemos.
-
-            s.addBike(b);
+               s.addBike(b);
 
         }
         else {
@@ -102,6 +98,29 @@ public class MyBikeImpl implements MyBike {
             return this.users.size();
 
     }
+    public List<Bike> listabicis( String idStation) throws StationException {
+
+        List<Bike> bikeList = new LinkedList<Bike>();
+        Station s = null;
+
+        for (int i = 0; i < this.numstations; i++) {
+            if (idStation.equals(this.stations[i].idStation)) {
+                s = this.stations[i];
+            }
+            }
+        if (s != null){
+            bikeList = s.getListaBikes();
+            return bikeList;
+
+
+
+        }
+        else {
+            throw  new StationException();
+        }
+
+
+    }
 
     public int numBikes(String idStation) throws StationException {
         int numBikes = 0;
@@ -117,7 +136,7 @@ public class MyBikeImpl implements MyBike {
 
         }
         else {
-            throw new  StationException();
+            throw new StationException();
 
 
         }
