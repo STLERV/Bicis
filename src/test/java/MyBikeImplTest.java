@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.LinkedList;
+
 
 public class MyBikeImplTest {
 
@@ -61,6 +63,7 @@ public class MyBikeImplTest {
         Bike b1 = this.mb.getBike("Station1", "2");
         Assert.assertEquals("Bici1",b1.getId());
         Assert.assertEquals(0, this.mb.numBikes("Station1"));
+        LinkedList<Bike> list =  this.mb.lisabicisusuario("2");
 
     }
 

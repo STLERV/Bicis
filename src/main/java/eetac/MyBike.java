@@ -1,5 +1,6 @@
 package eetac;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public interface MyBike {
@@ -16,4 +17,5 @@ public interface MyBike {
     public List<Bike> listabicis(String idStation) throws StationException;
     public List<Bike> listabicidporkm (String idStation) throws StationException;
     public Bike getBike (String idStation, String idUser) throws StationException;
+    public LinkedList<Bike> lisabicisusuario (String idUser);
 }

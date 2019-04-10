@@ -193,4 +193,12 @@ public class MyBikeImpl implements MyBike {
         return b;
 
     }
+
+    public LinkedList<Bike> lisabicisusuario (String idUser){
+        LinkedList<Bike> lista = new LinkedList<Bike>();
+        User u = this.users.get(idUser);
+        lista = u.getBikeList();
+        return lista;
+
+    }
 }
