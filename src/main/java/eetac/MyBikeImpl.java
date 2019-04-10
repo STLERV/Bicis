@@ -1,13 +1,14 @@
 package eetac;
-
+import java.util.List;
 import java.util.*;
 import org.apache.log4j.Logger;
+
 
 public class MyBikeImpl implements MyBike {
 
 //////////////Singelton////////
 
-   //
+    //
     final static Logger log = Logger.getLogger(MyBikeImpl.class.getName());
     private static MyBike instance;
 
@@ -46,13 +47,13 @@ public class MyBikeImpl implements MyBike {
     }
 
     //Añadimos la estacion en un array de estaciones ARRAY
-    public void addStation(String idStation, String name)  {
+    public void addStation(String idStation, String name) {
 
         if (this.numstations < 11) {
             Station s = new Station(idStation, name);
             this.stations[this.numstations] = s;
             this.numstations++;
-            log.info("Estación añadida" );
+            log.info("Estación añadida");
         }
 
 
@@ -77,10 +78,9 @@ public class MyBikeImpl implements MyBike {
 
         if (s != null) {
 
-               s.addBike(b);
+            s.addBike(b);
 
-        }
-        else {
+        } else {
 
             throw new StationException();
         }
@@ -95,10 +95,11 @@ public class MyBikeImpl implements MyBike {
 
     public int numUsers() {
 
-            return this.users.size();
+        return this.users.size();
 
     }
-    public List<Bike> listabicis( String idStation) throws StationException {
+
+    public List<Bike> listabicis(String idStation) throws StationException {
 
         List<Bike> bikeList = new LinkedList<Bike>();
         Station s = null;
@@ -107,20 +108,43 @@ public class MyBikeImpl implements MyBike {
             if (idStation.equals(this.stations[i].idStation)) {
                 s = this.stations[i];
             }
-            }
-        if (s != null){
+        }
+        if (s != null) {
             bikeList = s.getListaBikes();
             return bikeList;
 
 
-
-        }
-        else {
-            throw  new StationException();
+        } else {
+            throw new StationException();
         }
 
 
     }
+
+    public List<Bike> listabicidporkm(String idStation) throws StationException {
+        List<Bike> lista = new LinkedList<Bike>();
+        Station sta = null;
+
+        for (int i = 0; i < this.numstations; i++) {
+            if (idStation.equals(this.stations[i].idStation)) {
+                sta = this.stations[1];
+            }
+        }
+        if (sta != null) {
+            Collections.sort(lista, new Comparator<Bike>() {
+                   public int compare(Bike o1, Bike o2) {
+                    return (int)(o1.getKm()- o2.getKm());
+                }
+            });
+
+        }
+        else {
+            throw new StationException();
+        }
+      return lista;
+    }
+
+
 
     public int numBikes(String idStation) throws StationException {
         int numBikes = 0;
@@ -141,5 +165,32 @@ public class MyBikeImpl implements MyBike {
 
         }
         return numBikes;
+    }
+
+    ///el get bike quira una bici a la estacion y la añade al usuario.
+    public Bike getBike (String idStation, String idUser) throws StationException{
+        //le damos el id user y nos da el user//
+        User u = this.users.get(idUser);
+        Station s = null;
+        Bike b;
+
+        for (int i = 0; i < this.numstations; i++) {
+            if (idStation.equals(this.stations[i].idStation)) {
+                s = this.stations[i];
+            }
+        }
+        if (s != null){
+
+            b = s.getListaBikes().poll();
+            u.getBikeList().add(b);
+
+        }
+        else {
+            throw new StationException();
+
+
+        }
+        return b;
+
     }
 }

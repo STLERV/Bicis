@@ -14,6 +14,6 @@ public interface MyBike {
     public int numStations();
     public int numBikes(String idStation) throws StationException;
     public List<Bike> listabicis(String idStation) throws StationException;
-
-
+    public List<Bike> listabicidporkm (String idStation) throws StationException;
+    public Bike getBike (String idStation, String idUser) throws StationException;
 }

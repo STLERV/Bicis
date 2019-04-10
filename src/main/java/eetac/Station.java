@@ -8,7 +8,7 @@ public class Station {
     String idStation;
     String name;
     private int max;
-    private LinkedList<Bike> b;
+    public LinkedList<Bike> b;
     Bike bike;
 
     public Station(String idStation, int max) {
@@ -45,7 +45,7 @@ public class Station {
         this.b.add(bike);
 
     }
-    public List<Bike> getListaBikes(){
+    public LinkedList<Bike> getListaBikes(){
         return this.b;
     }
 
